@@ -42,7 +42,7 @@ def one_class_adv_loss(model,
             new_targets = new_targets.to(torch.float)
             
             #If the points correspond to the hidden layer, pass them through the later half of the network only
-            logits = model.module.half_forward_end(x_adv_sampled)         
+            logits = model.half_forward_end(x_adv_sampled)         
             logits = torch.squeeze(logits, dim = 1)
             new_loss = F.binary_cross_entropy_with_logits(logits, new_targets)  
 
@@ -81,7 +81,7 @@ def one_class_adv_loss(model,
             x_adv_sampled = x_natural + eta_x_adv  #These adv_points are now on the surface of hyper-sphere
 
     #Pass the adv_points throught the network and calculate the loss
-    adv_pred = model.module.half_forward_end(x_adv_sampled)
+    adv_pred = model.half_forward_end(x_adv_sampled)
 
     adv_pred = torch.squeeze(adv_pred, dim = 1)
     new_targets = torch.squeeze(new_targets)

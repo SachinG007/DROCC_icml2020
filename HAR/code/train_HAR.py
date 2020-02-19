@@ -124,8 +124,7 @@ def train(args,
 
         test(args,model,device, test_data, test_lab, epoch)
         
-        if (epoch+1) % 10 == 0:
-            torch.save(model.state_dict(),os.path.join(args.model_dir, 'model_HAR.pt'))
+        if (epoch+1) % 10 == 0 and epoch > only_ce_epochs:
             print("TEST AUC", max_auc)
 
     #All epochs done
@@ -170,6 +169,7 @@ def test(args,
     if epoch > only_ce_epochs and test_auc > max_auc:
         max_auc = test_auc
         max_auc_epoch = epoch
+        torch.save(model.state_dict(),os.path.join(args.model_dir, 'model_HAR.pt'))
     # print("MAX TEST AUC", max_auc, " @epoch ", max_auc_epoch)
     # if epoch % 10 == 0:
     #     print(str(np.mean(scores[labels==1])) + " +/- " + str(np.std(scores[labels==1])))

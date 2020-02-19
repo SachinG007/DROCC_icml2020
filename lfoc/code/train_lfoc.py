@@ -108,7 +108,7 @@ def train(args,
             epoch_ce_loss += ce_loss
 
             #Extract the hidden dimension features (for hidden layer adversrial loss)
-            mid_feats = model.module.half_forward_start(data)  #The data has been passed only through the first layer of the Network
+            mid_feats = model.half_forward_start(data)  #The data has been passed only through the first layer of the Network
             #Some Placeholders
             adv_loss_mid = 0  #AdvLoss @ Hidden Layer
             num_adv_pts_mid = 0  #Number of Adversarial Points actually detected on the surface of hyper-sphere for Hidden Layer
@@ -213,8 +213,8 @@ def grad_analyzer(args,
     g_data = data
     g_data = g_data.detach().requires_grad_()
     # logits = model(g_data)
-    hid_state = model.module.half_forward_start(g_data)
-    logits = model.module.half_forward_end(hid_state)
+    hid_state = model.half_forward_start(g_data)
+    logits = model.half_forward_end(hid_state)
     logits = torch.squeeze(logits, dim = 1)
     ce_loss = F.binary_cross_entropy_with_logits(logits, target)
     

@@ -92,7 +92,6 @@ def main():
 
     train_data, train_lab, test_data_norm, test_lab_norm, test_data_close, test_lab_close = load_data(args.data_path)
     model = LSTM_FC(input_dim=32, num_classes=1, num_hidden_nodes=args.hd).to(device)
-    model = nn.DataParallel(model)
     #Restore from checkpoint 
     if args.restore == 1:
         model.load_state_dict(torch.load(os.path.join(args.model_dir, 'model_lfoc.pt')))
