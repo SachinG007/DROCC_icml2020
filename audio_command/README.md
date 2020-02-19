@@ -9,7 +9,9 @@ source myenv/bin/activate
 pip3 install -r requirements.txt
 ```
 
-## DataProcessing
+## Data Processing
+* Download the Audio Commands dataset and generate MFCC features following [this](https://github.com/microsoft/EdgeML/tree/master/examples/pytorch/FastCells/KWS-training). Generate the features for a. the keyword and b. all classes except the keyword.
+* Use the `code/process_dataset.py` script to generate the training and testing data. The directory containing the generated files is `root_data` in the following section.
 
 ## Example Usage for AUDIO COMMANDS Dataset
 ```
@@ -18,9 +20,9 @@ python3  one_class_main_kws.py --hd 128 --lr 0.001 --inp_lamda 1 --inp_radius 80
 ```
 
 ## Arguments Detail
-inp_lamda => Weightage to the loss from adversarially sampled negative points (\mu in the paper)
-inp_radius => radius corresponding to the definition of Ni(r)
-hd => LSTM Hidden Dimension
-one_class_adv => Use the DROCC loss formulation or not (1:Use  0: Dont Use)
-optim => 0: Adam   1: SGD(M)
+inp_lamda => Weightage to the loss from adversarially sampled negative points (\mu in the paper)  
+inp_radius => radius corresponding to the definition of Ni(r)  
+hd => LSTM Hidden Dimension  
+one_class_adv => Use the DROCC loss formulation or not (1:Use  0: Dont Use)  
+optim => 0: Adam   1: SGD(M)  
 

@@ -9,7 +9,13 @@ source myenv/bin/activate
 pip3 install -r requirements.txt
 ```
 
-## DataProcessing
+## Data Processing
+* Download the dataset from the UCI Repository [here](https://archive.ics.uci.edu/ml/datasets/Epileptic+Seizure+Recognition). This will consists of a `data.csv` file. 
+* To generate the training and test data, use the `process_dataset.py` script
+```
+python code/process_dataset.py -d <path to folder with data.csv> -o <output path>
+```
+The output path is referred to as "root_data" in the following section.
 
 ## Example Usage for Epilepsy Dataset
 ```
@@ -18,9 +24,9 @@ python3  one_class_main_epilepsy.py --hd 128 --lr 0.00001 --inp_lamda 0.5 --inp_
 ```
 
 ## Arguments Detail
-inp_lamda => Weightage to the loss from adversarially sampled negative points (\mu in the paper)
-inp_radius => radius corresponding to the definition of Ni(r)
-hd => LSTM Hidden Dimension
-one_class_adv => Use the DROCC loss formulation or not (1:Use  0: Dont Use)
-optim => 0: Adam   1: SGD(M)
+inp_lamda => Weightage to the loss from adversarially sampled negative points (\mu in the paper)  
+inp_radius => radius corresponding to the definition of Ni(r)   
+hd => LSTM Hidden Dimension  
+one_class_adv => Use the DROCC loss formulation or not (1:Use  0: Dont Use)  
+optim => 0: Adam   1: SGD(M)  
 
