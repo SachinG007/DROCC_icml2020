@@ -20,9 +20,9 @@ python3  one_class_main_kws.py --hd 128 --lr 0.001 --inp_lamda 1 --inp_radius 80
 ```
 
 ## Arguments Detail
-inp_lamda => Weightage to the loss from adversarially sampled negative points (\mu in the paper)
-inp_radius => radius corresponding to the definition of Ni(r)
-hd => LSTM Hidden Dimension
-one_class_adv => Use the DROCC loss formulation or not (1:Use  0: Dont Use)
-optim => 0: Adam   1: SGD(M)
+inp_lamda => Weightage to the loss from adversarially sampled negative points (\mu in the paper)  
+inp_radius => radius corresponding to the definition of Ni(r)  
+hd => LSTM Hidden Dimension  
+one_class_adv => Use the DROCC loss formulation or not (1:Use  0: Dont Use)  
+optim => 0: Adam   1: SGD(M)  
 
