@@ -16,11 +16,11 @@ python3  one_class_main_cifar.py  --inp_lamda 1  --inp_radius 8 --lr 0.001 --bat
 ```
 
 ## Arguments Detail
-inp_lamda => Weightage to the loss from adversarially sampled negative points (\mu in the paper)
-inp_radius => radius corresponding to the definition of Ni(r)
-normal_class => Selects the normal class, rest all 9 classes are considered anomalous
-one_class_adv => Use the DROCC loss formulation or not (1:Use  0: Dont Use)
-optim => 0: Adam   1: SGD(M)
+inp_lamda => Weightage to the loss from adversarially sampled negative points (\mu in the paper)  
+inp_radius => radius corresponding to the definition of Ni(r)  
+normal_class => Selects the normal class, rest all 9 classes are considered anomalous  
+one_class_adv => Use the DROCC loss formulation or not (1:Use  0: Dont Use)  
+optim => 0: Adam   1: SGD(M)  
 
 ## Jupyter Notebooks
 We have also added sample jupyter notebooks
