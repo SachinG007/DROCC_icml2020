@@ -1,0 +1,12 @@
+/code/results/
+/code/results_4D/
+/code/results_2D/
+/code/result_figs/
+code/model_sin/
+code/mnt/
+code/grid_cifar_val/data/
+code/data/
+code/dataset.pyc
+code/gridSearch/data/
+code/__pycache__/
+code/base/
