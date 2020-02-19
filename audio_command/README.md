@@ -1,4 +1,4 @@
-# one-class for LFOC 
+# one-class for AUDIO COMMANDS
 
 ## Installation
 We use Python 3.6 to code. It needs packages mentioned in `requirements.txt` to run. Please ensure to use torchvision `0.2.1`
@@ -11,10 +11,10 @@ pip3 install -r requirements.txt
 
 ## DataProcessing
 
-## Example Usage for LFOC Dataset
+## Example Usage for AUDIO COMMANDS Dataset
 ```
 cd code/   
-python3 lfoc_main.py  --hd 64 --lr 0.005 --inp_lamda 0.05 --inp_radius 1.5  --batch_size 256 --epochs 150  --seed 0 --one_class_adv 1   --optim 0  --restore 0 -d "root_path"
+python3  one_class_main_kws.py --hd 128 --lr 0.001 --inp_lamda 1 --inp_radius 80 --batch_size 256 --epochs 200 --one_class_adv 1 --optim 0 --restore 0 -d "root_data"
 ```
 
 ## Arguments Detail

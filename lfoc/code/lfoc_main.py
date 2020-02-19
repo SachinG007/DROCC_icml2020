@@ -63,7 +63,6 @@ device = torch.device("cuda" if use_cuda else "cpu")
 kwargs = {'num_workers': 1, 'pin_memory': True} if use_cuda else {}
 
 def load_data(path):
-    path="/mnt/lfoc/follow-fpr/"
     train_data = np.load(os.path.join(path, 'train_data.npy'))
     train_lab = np.load(os.path.join(path, 'train_labels.npy'))
     test_data_norm = np.load(os.path.join(path, 'test_others_data.npy'))
