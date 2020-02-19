@@ -46,7 +46,8 @@ def one_class_adv_loss(model,
             # model.train()
             grad = torch.autograd.grad(new_loss, [x_adv_sampled])[0]
             # model.eval()
-            grad_flattened = grad.view(grad.shape[0],-1)
+            # grad_flattened = grad.view(grad.shape[0],-1)
+            grad_flattened = torch.reshape(grad, (grad.shape[0],-1))
             grad_norm = torch.norm(grad_flattened, p=2, dim = 1)
             for u in range(grad.ndim - 1):
                 grad_norm = torch.unsqueeze(grad_norm, dim = u+1)

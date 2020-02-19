@@ -124,7 +124,7 @@ def train(args,
 
         test(args,model,device, test_data, test_lab, epoch)
         
-        if (epoch+1) % 10 and epoch > only_ce_epochs == 0:
+        if (epoch+1) % 10 == 0 and epoch > only_ce_epochs:
             print("TEST AUC", max_auc)
 
     #All epochs done

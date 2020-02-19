@@ -87,7 +87,7 @@ def main():
     model = LSTM_FC(input_dim=32, num_classes=1, num_hidden_nodes=args.hd).to(device)
     #Restore from checkpoint 
     if args.restore == 1:
-        model.load_state_dict(torch.load(os.path.join(args.model_dir, 'model_marvin-nn-optim.pt')))
+        model.load_state_dict(torch.load(os.path.join(args.model_dir, 'model_kws.pt')))
         print("Saved Model Loaded")
     # Training the model
     train(args, model, device,train_data, train_lab, test_data, test_lab)
