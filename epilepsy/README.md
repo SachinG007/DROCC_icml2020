@@ -9,7 +9,13 @@ source myenv/bin/activate
 pip3 install -r requirements.txt
 ```
 
-## DataProcessing
+## Data Processing
+* Download the dataset from the UCI Repository [here](https://archive.ics.uci.edu/ml/datasets/Epileptic+Seizure+Recognition). This will consists of a `data.csv` file. 
+* To generate the training and test data, use the `process_dataset.py` script
+```
+python code/process_dataset.py -d <path to folder with data.csv> -o <output path>
+```
+The output path is referred to as "root_data" in the following section.
 
 ## Example Usage for Epilepsy Dataset
 ```

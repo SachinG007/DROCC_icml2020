@@ -9,7 +9,9 @@ source myenv/bin/activate
 pip3 install -r requirements.txt
 ```
 
-## DataProcessing
+## Data Processing
+* Download the Audio Commands dataset and generate MFCC features following [this](https://github.com/microsoft/EdgeML/tree/master/examples/pytorch/FastCells/KWS-training). Generate the features for a. the keyword and b. all classes except the keyword.
+* Use the `code/process_dataset.py` script to generate the training and testing data. The directory containing the generated files is `root_data` in the following section.
 
 ## Example Usage for AUDIO COMMANDS Dataset
 ```
