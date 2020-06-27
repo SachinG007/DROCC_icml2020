@@ -115,11 +115,14 @@ def train(args,
 
         test(args,model,device, test_loader, epoch)
 
-        if (epoch+1) % 10 == 0:
-            torch.save(model.state_dict(),os.path.join(args.model_dir, 'model_cifar.pt'))
-            print("TEST AUC", max_auc)
+        # if (epoch+1) % 10 == 0:
+        #     torch.save(model.state_dict(),os.path.join(args.model_dir, 'model_cifar.pt'))
+        #     print("TEST AUC", max_auc)
 
-        
+    f = open('cifar_' + str(args.normal_class) + '.txt','a+')
+    f.write(" inp_radius " +str(args.inp_radius) + " inp_lamda " + str(args.inp_lamda) + " gamma " + str(args.gamma) +  " Optim " + str(args.optim) + " LR " + str(args.lr) +
+    " MAX AUC " + str(max_auc) + " @epoch " + str(max_auc_epoch) + "\n") 
+    f.close() 
 
     
 
@@ -157,8 +160,9 @@ def test(args,
     labels = np.array(labels)
     scores = np.array(scores)
     test_auc = roc_auc_score(labels, scores)
+    print(test_auc)
     global max_auc
     global max_auc_epoch
-    if test_auc > max_auc:
+    if test_auc > max_auc and epoch > args.epochs - 10:
         max_auc = test_auc
         max_auc_epoch = epoch

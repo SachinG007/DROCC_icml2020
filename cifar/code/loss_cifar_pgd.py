@@ -20,7 +20,7 @@ def one_class_adv_loss(model,
                        device,
                        epoch,
                        step_size=0.001, 
-                       num_gradient_steps=40): 
+                       num_gradient_steps=100): 
     #Model has to be only used for evaluation here, no weight updates
     model.eval()
     batch_size = len(x_natural)
@@ -31,7 +31,7 @@ def one_class_adv_loss(model,
 
     #Find points near the manifold classified as positive
     #we will project them to a hyper-sphere later
-    for _ in range(num_gradient_steps):
+    for step in range(num_gradient_steps):
         with torch.enable_grad():
             #Targets for Adversarial points - Positive in our case since we want to sample points 
             #near manifold classified positive
@@ -56,22 +56,23 @@ def one_class_adv_loss(model,
         with torch.no_grad():
             x_adv_sampled.add_(step_size*grad_normalized)
 
-    #Take the sampled adversarial points to the surface of hyper-sphere
-    eta_x_adv = x_adv_sampled - x_natural
+        if step%20==0:
+            #Take the sampled adversarial points to the surface of hyper-sphere
+            eta_x_adv = x_adv_sampled - x_natural
 
-    #Need to sum the difference along the non_batch dimension
-    #For 2D data, sum along the dimension 1
-    eta_x_adv_flattened = eta_x_adv.view(eta_x_adv.shape[0], -1)
-    norm = torch.norm(eta_x_adv_flattened, p = 2, dim = 1)
-    for u in range(eta_x_adv.ndim - 1):
-        norm = torch.unsqueeze(norm, dim = u+1)
-    if eta_x_adv.ndim == 2:
-        norm_eta = norm.repeat(1,eta_x_adv.shape[1])
-    if eta_x_adv.ndim == 4:
-        norm_eta = norm.repeat(1,eta_x_adv.shape[1],eta_x_adv.shape[2],eta_x_adv.shape[3])
+            #Need to sum the difference along the non_batch dimension
+            #For 2D data, sum along the dimension 1
+            eta_x_adv_flattened = eta_x_adv.view(eta_x_adv.shape[0], -1)
+            norm = torch.norm(eta_x_adv_flattened, p = 2, dim = 1)
+            for u in range(eta_x_adv.ndim - 1):
+                norm = torch.unsqueeze(norm, dim = u+1)
+            if eta_x_adv.ndim == 2:
+                norm_eta = norm.repeat(1,eta_x_adv.shape[1])
+            if eta_x_adv.ndim == 4:
+                norm_eta = norm.repeat(1,eta_x_adv.shape[1],eta_x_adv.shape[2],eta_x_adv.shape[3])
 
-    eta_x_adv = eta_x_adv * 1 *radius / norm_eta
-    x_adv_sampled = x_natural + eta_x_adv  #These adv_points are now on the surface of hyper-sphere
+            eta_x_adv = eta_x_adv * 1 *radius / norm_eta
+            x_adv_sampled = x_natural + eta_x_adv  #These adv_points are now on the surface of hyper-sphere
 
     adv_pred = model(x_adv_sampled)
     adv_pred = torch.squeeze(adv_pred, dim = 1)

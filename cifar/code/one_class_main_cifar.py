@@ -18,8 +18,6 @@ from train_cifar_pgd import *
 
 #PARSER ARGUMENTS
 torch.set_printoptions(precision=5)
-# torch.manual_seed(2)
-# np.random.seed(2)
 parser = argparse.ArgumentParser(description='PyTorch Simple Training')
 parser.add_argument('--batch_size', type=int, default=128, metavar='N',
                     help='input batch size for training (default: 128)')
@@ -45,11 +43,15 @@ parser.add_argument('--restore', type=int, default=1, metavar='N',
                     help='load model ')
 parser.add_argument('--normal_class', type=int, default=0, metavar='N',
                     help='normal class nmber')
+parser.add_argument('--seed', type=int, default=1, metavar='N',
+                    help='seed')
 parser.add_argument('--optim', type=int, default=0, metavar='N',
                     help='0 : Adam 1: SGD')
 #PARSER ARGUMENTS OVER
 args = parser. parse_args()
 
+torch.manual_seed(args.seed)
+np.random.seed(args.seed)
 # settings
 #Checkpoint store path
 model_dir = args.model_dir

@@ -1,0 +1,16 @@
+Unable to init server: Could not connect: Connection refused
+Unable to init server: Could not connect: Connection refused
+Unable to init server: Could not connect: Connection refused
+Unable to init server: Could not connect: Connection refused
+Unable to init server: Could not connect: Connection refused
+
+(one_class_main_cifar.py:33768): Gdk-CRITICAL **: 17:00:46.917: gdk_cursor_new_for_display: assertion 'GDK_IS_DISPLAY (display)' failed
+Unable to init server: Could not connect: Connection refused
+
+(one_class_main_cifar.py:33767): Gdk-CRITICAL **: 17:00:46.918: gdk_cursor_new_for_display: assertion 'GDK_IS_DISPLAY (display)' failed
+Unable to init server: Could not connect: Connection refused
+Unable to init server: Could not connect: Connection refused
+
+(one_class_main_cifar.py:33769): Gdk-CRITICAL **: 17:00:46.919: gdk_cursor_new_for_display: assertion 'GDK_IS_DISPLAY (display)' failed
+
+(one_class_main_cifar.py:33770): Gdk-CRITICAL **: 17:00:46.919: gdk_cursor_new_for_display: assertion 'GDK_IS_DISPLAY (display)' failed
