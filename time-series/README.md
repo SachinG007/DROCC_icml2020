@@ -32,7 +32,7 @@ python3  one_class_main_kws.py --hd 512 --lr 0.001 --inp_lamda 1 --gamma 2 --ste
 ## Example Usage for Epilepsy Dataset
 ```
 cd code/   
-python3  one_class_main_epilepsy.py --hd 128 --lr 0.00001 --inp_lamda 0.5 --gamma 2 --step_size 0.1 --inp_radius 10 --batch_size 256 --epochs 30 --one_class_adv 1 --optim 0 --restore 0 -d "root_data"
+python3  one_class_main_epilepsy.py --hd 128 --lr 0.00001 --inp_lamda 0.5 --gamma 2 --step_size 0.1 --inp_radius 10 --batch_size 256 --epochs 200 --one_class_adv 1 --optim 0 --restore 0 -d "root_data"
 ```
 
 ## Arguments Detail
