@@ -53,7 +53,6 @@ def train(args,
         adjust_learning_rate(optimizer,epoch, args)
         #lamda_1 is the weightage for adversarial loss at the input layer
         lamda_1 = args.inp_lamda
-        total_adv_pts_inp = torch.tensor([0]).type(torch.float32).detach() #Adversarial Points detected in the input layer
         #Placeholder for the respective 2 loss values
         epoch_adv_loss_inp = torch.tensor([0]).type(torch.float32).detach()  #AdvLoss @ Input Layer
         epoch_ce_loss = 0  #Cross entropy Loss
@@ -81,7 +80,6 @@ def train(args,
 
             #Some Placeholders
             adv_loss_inp = 0  #AdvLoss @ Input Layer
-            num_adv_pts_inp = 0  #Number of Adversarial Points actually detected on the surface of hyper-sphere for Input Layer
             '''
             Adversarial Loss is calculated only for the positive data points 
             We donot calculate adversarial loss for the negative points
@@ -92,10 +90,9 @@ def train(args,
             if  epoch > only_ce_epochs and args.one_class_adv and torch.sum(target) == args.batch_size:
         
                 #AdvLoss in the input layer
-                adv_loss_inp, num_adv_pts_inp = one_class_adv_loss(model, data, target,
+                adv_loss_inp, _ = one_class_adv_loss(model, data, target,
                                                     args.inp_radius,device, epoch, args.gamma, step_size= args.step_size)
                 epoch_adv_loss_inp += adv_loss_inp
-                total_adv_pts_inp += num_adv_pts_inp
 
                 loss = ce_loss + adv_loss_inp*lamda_1
             else: 
@@ -112,9 +109,6 @@ def train(args,
         print("Epoch : ", str(epoch), " CE Loss : ", epoch_ce_loss.item(),
              " AdvLoss@Input : ", epoch_adv_loss_inp.item())
 
-        if args.one_class_adv:
-            print(" NumDetectedAdvPoints@Input ", total_adv_pts_inp.item())
-        #Visualize the classifier performance every 10th epoch
 
         test(args,model,device, test_data, test_lab, epoch)
         
