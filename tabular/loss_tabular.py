@@ -18,6 +18,7 @@ def one_class_adv_loss(model,
                        radius,
                        device,
                        epoch,
+                       gamma,
                        step_size=.001, 
                        num_gradient_steps=50): 
     #Model has to be only used for evaluation here, no weight updates
