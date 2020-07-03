@@ -5,7 +5,7 @@ import torch.nn as nn
 import torch.nn.functional as F
 import numpy as np 
 from sklearn.metrics import roc_auc_score, precision_recall_fscore_support
-from loss_epilepsy import one_class_adv_loss
+from loss_tabular import one_class_adv_loss
 import numpy as np
 
 only_ce_epochs = 50
@@ -97,7 +97,7 @@ def train(args,
         
                 #AdvLoss in the input layer
                 adv_loss_inp, num_adv_pts_inp = one_class_adv_loss(model, data, target,
-                                                    args.inp_radius,device, epoch)
+                                                    args.inp_radius,device, epoch, gamma)
                 epoch_adv_loss_inp += adv_loss_inp
                 total_adv_pts_inp += num_adv_pts_inp
 

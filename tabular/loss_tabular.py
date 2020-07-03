@@ -43,7 +43,7 @@ def one_class_adv_loss(model,
             # model.train()
             grad = torch.autograd.grad(new_loss, [x_adv_sampled])[0]
             # model.eval()
-            grad_flattened = grad.view(grad.shape[0],-1)
+            grad_flattened = torch.reshape(grad, (grad.shape[0],-1))
             grad_norm = torch.norm(grad_flattened, p=2, dim = 1)
             for u in range(grad.ndim - 1):
                 grad_norm = torch.unsqueeze(grad_norm, dim = u+1)
@@ -55,22 +55,17 @@ def one_class_adv_loss(model,
         with torch.no_grad():
             x_adv_sampled.add_(step_size*grad_normalized)
 
-        if  (step+1) % 5 == 0 :
+        if (step+1)%10==0:
             #Take the sampled adversarial points to the surface of hyper-sphere
-            eta_x_adv = x_adv_sampled - x_natural
-            #Need to sum the difference along the non_batch dimension
-            #For 2D data, sum along the dimension 1
-            eta_x_adv_flattened = eta_x_adv.view(eta_x_adv.shape[0], -1)
-            norm = torch.norm(eta_x_adv_flattened, p = 2, dim = 1)
-            for u in range(eta_x_adv.ndim - 1):
-                norm = torch.unsqueeze(norm, dim = u+1)
-            if eta_x_adv.ndim == 2:
-                norm_eta = norm.repeat(1,eta_x_adv.shape[1])
-            if eta_x_adv.ndim == 3:
-                norm_eta = norm.repeat(1,eta_x_adv.shape[1],eta_x_adv.shape[2])
+            h = x_adv_sampled - x_natural
+            norm_h = torch.sqrt(torch.sum(h**2, dim=tuple(range(1, h.dim()))))
+            # compute alpha in function of the value of the norm of h (by batch)
+            alpha = torch.clamp(norm_h, radius, gamma * radius).to(device)
+            # make use of broadcast to project h
+            proj = (alpha / norm_h).view(-1, *[1]*(h.dim()-1))
+            h = proj * h
 
-            eta_x_adv = eta_x_adv * 1 *radius / norm_eta
-            x_adv_sampled = x_natural + eta_x_adv  #These adv_points are now on the surface of hyper-sphere
+            x_adv_sampled = x_natural + h  #These adv_points are now on the surface of hyper-sphere
 
 
     adv_pred = model(x_adv_sampled)

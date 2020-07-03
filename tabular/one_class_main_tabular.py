@@ -10,7 +10,7 @@ from torchvision import datasets, transforms
 import numpy as np
 from dataset import *
 from models import TwoLayer
-from train_epilepsy import *
+from train_tabular import *
 
 
 #PARSER ARGUMENTS
@@ -42,6 +42,8 @@ parser.add_argument('--restore', type=int, default=1, metavar='N',
                     help='load model ')
 parser.add_argument('--optim', type=int, default=0, metavar='N',
                     help='0 : Adam 1: SGD')
+parser.add_argument('--gamma', type=float, default=2.0, metavar='N',
+                    help='r to gamma * r projection')
 parser.add_argument('-d', '--data_path', type=str, default='.')
 #PARSER ARGUMENTS OVER
 args = parser. parse_args()
