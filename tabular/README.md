@@ -25,7 +25,7 @@ The directory with this data is referred to as "root_data" in the following sect
 * Download the dataset from the UCI Repository [here](http://archive.ics.uci.edu/ml/datasets/Abalone). This will consists of `abalone.data`. 
 * To generate the training and test data, use the `process_dataset.py` script in the directory with the data. and the output is generated in the same directory.
 ```
-python code/process_dataset.py
+python process_dataset.py
 ```
 The output path is referred to as "root_data" in the following section.
 
