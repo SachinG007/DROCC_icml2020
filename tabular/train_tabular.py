@@ -95,7 +95,7 @@ def train(args,
         
                 #AdvLoss in the input layer
                 adv_loss_inp, _ = one_class_adv_loss(model, data, target,
-                                                    args.inp_radius,device, epoch, gamma)
+                                                    args.inp_radius,device, epoch, args.gamma)
                 epoch_adv_loss_inp += adv_loss_inp
 
                 loss = ce_loss + adv_loss_inp*lamda_1
