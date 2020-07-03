@@ -21,7 +21,7 @@ def one_class_adv_loss(model,
                        step_size=.001, 
                        num_gradient_steps=50): 
     #Model has to be only used for evaluation here, no weight updates
-    # model.eval()
+    model.eval()
     batch_size = len(x_natural)
     
     #Randomly sample points around the traininf data -> We will do SGD on these to find the adversarial points
