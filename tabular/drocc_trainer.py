@@ -141,6 +141,7 @@ class DROCCTrainer:
         test_loader: Dataloader object for the test dataset.
         metric: Metric used for evaluation (AUC / F1).
         """        
+        self.model.eval()
         label_score = []
         batch_idx = -1
         for data, target, _ in test_loader:
@@ -229,3 +230,8 @@ class DROCCTrainer:
 
         return adv_loss
 
+    def save(self, path):
+        torch.save(model.state_dict(),os.path.join(path, 'model.pt'))
+
+    def load(self, path):
+        self.model.load_state_dict(torch.load(os.path.join(path, 'model.pt')))

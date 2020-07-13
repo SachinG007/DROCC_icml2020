@@ -13,6 +13,9 @@ from drocc_trainer import DROCCTrainer
 
 
 class MLP(nn.Module):
+    """
+    Multi-layer perceptron with single hidden layer.
+    """
     def __init__(self,
                  input_dim=2,
                  num_classes=1, 
@@ -59,17 +62,18 @@ def load_data(path):
     mean=np.mean(train_data,0)
     std=np.std(train_data,0)
     train_data=(train_data-mean)/ (std + 1e-4)
+    num_features = train_data.shape[1]
 
     test_data = (test_data - mean)/(std + 1e-4)
     print(train_data.shape, train_lab.shape, test_data.shape, test_lab.shape)
-    return CustomDataset(train_data, train_lab), CustomDataset(test_data, test_lab), train_data.shape[1]
+    return CustomDataset(train_data, train_lab), CustomDataset(test_data, test_lab), num_features
 
 def main():
-    train_dataset, test_dataset, features = load_data(args.data_path)
+    train_dataset, test_dataset, num_features = load_data(args.data_path)
     train_loader = DataLoader(train_dataset, args.batch_size, shuffle=True)
-    test_loader = DataLoader(test_dataset, args.batch_size)
+    test_loader = DataLoader(test_dataset, args.batch_size, shuffle=True)
     
-    model = MLP(input_dim=features, num_hidden_nodes=args.hd, num_classes=1).to(device)
+    model = MLP(input_dim=num_features, num_hidden_nodes=args.hd, num_classes=1).to(device)
     if args.optim == 1:
         optimizer = optim.SGD(model.parameters(),
                                   lr=args.lr,
@@ -79,19 +83,23 @@ def main():
         optimizer = optim.Adam(model.parameters(),
                                lr=args.lr)
         print("using Adam")
-
-    #Restore from checkpoint 
-    if args.restore == 1:
-        if os.path.exists(os.path.join(args.model_dir, 'model.pt')):
-            model.load_state_dict(torch.load(os.path.join(args.model_dir, 'model.pt')))
-            print("Saved Model Loaded")
+    
     # Training the model
     trainer = DROCCTrainer(model, optimizer, args.inp_lamda, args.inp_radius, args.gamma, device)
+    
+    # Restore from checkpoint 
+    if args.restore == 1:
+        if os.path.exists(os.path.join(args.model_dir, 'model.pt')):
+            trainer.load(args.model_dir)
+            print("Saved Model Loaded")
+    
     trainer.train(train_loader, test_loader, args.lr, 100, metric='F1')
 
+    trainer.save(args.model_dir)
 
 if __name__ == '__main__':
     torch.set_printoptions(precision=5)
+    
     parser = argparse.ArgumentParser(description='PyTorch Simple Training')
     parser.add_argument('--batch_size', type=int, default=128, metavar='N',
                         help='input batch size for training (default: 128)')
@@ -120,7 +128,6 @@ if __name__ == '__main__':
     parser.add_argument('--gamma', type=float, default=2.0, metavar='N',
                         help='r to gamma * r projection')
     parser.add_argument('-d', '--data_path', type=str, default='.')
-    #PARSER ARGUMENTS OVER
     args = parser. parse_args()
 
     # settings
@@ -130,6 +137,5 @@ if __name__ == '__main__':
         os.makedirs(model_dir)
     use_cuda = torch.cuda.is_available()
     device = torch.device("cuda" if use_cuda else "cpu")
-    kwargs = {'num_workers': 1, 'pin_memory': True} if use_cuda else {}
     
     main()
