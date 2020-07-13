@@ -1,5 +1,5 @@
 # Deep Robust One-Class Classification 
-In this directory we present examples of how to use the `DROCCTrainer` to replicate results in our [paper](https://arxiv.org/abs/2002.12718).
+In this directory we present examples of how to use the `DROCCTrainer` to replicate results in [paper](https://arxiv.org/abs/2002.12718).
 
 
 ## Tabular Experiments
