@@ -20,5 +20,5 @@ class CustomDataset(Dataset):
     def __getitem__(self, idx):
         if torch.is_tensor(idx):
             idx = idx.tolist()
-        return torch.from_numpy(self.data[idx]), (self.targets[idx])
+        return torch.from_numpy(self.data[idx]), (self.targets[idx]), torch.tensor([0])
 
