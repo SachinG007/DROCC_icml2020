@@ -66,7 +66,7 @@ def load_data(path):
 
     test_data = (test_data - mean)/(std + 1e-4)
     print(train_data.shape, train_lab.shape, test_data.shape, test_lab.shape)
-    return CustomDataset(train_data, train_lab), CustomDataset(test_data, test_lab), num_features
+    return CustomDataset(train_data, train_lab), CustomDataset(test_data, 1 - test_lab), num_features
 
 def main():
     train_dataset, test_dataset, num_features = load_data(args.data_path)
@@ -134,7 +134,7 @@ if __name__ == '__main__':
     parser.add_argument('--gamma', type=float, default=2.0, metavar='N',
                         help='r to gamma * r projection')
     parser.add_argument('-d', '--data_path', type=str, default='.')
-    args = parser. parse_args()
+    args = parser.parse_args()
 
     # settings
     #Checkpoint store path

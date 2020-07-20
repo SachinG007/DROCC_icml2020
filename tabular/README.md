@@ -3,22 +3,28 @@ In this directory we present examples of how to use the `DROCCTrainer` to replic
 
 
 ## Tabular Experiments
-### Arrhythmia and Thyroid
-* Download the datasets from the ODDS Repository, [Arrhythmia](http://odds.cs.stonybrook.edu/arrhythmia-dataset/) and [Thyroid](http://odds.cs.stonybrook.edu/annthyroid-dataset/). 
-* The data is divided for training as presented in previous works: [DAGMM](https://openreview.net/forum?id=BJJLHbb0-) and [GOAD](https://openreview.net/forum?id=H1lK_lBtvS).
-* Generate the train and test files in the following format:
+Data is expected in the following format:
 ```
 train_data.npy: features of train data
 test_data.npy: features of test data
+train_labels.npy: labels for train data
 test_labels.npy: labels for test data
+```
+
+### Arrhythmia and Thyroid
+* Download the datasets from the ODDS Repository, [Arrhythmia](http://odds.cs.stonybrook.edu/arrhythmia-dataset/) and [Thyroid](http://odds.cs.stonybrook.edu/annthyroid-dataset/). 
+* The data is divided for training as presented in previous works: [DAGMM](https://openreview.net/forum?id=BJJLHbb0-) and [GOAD](https://openreview.net/forum?id=H1lK_lBtvS).
+* To generate the training and test data, use the `process_odds_dataset.py` script as follows and the output is generated in the current directory.
+```
+python process_odds_dataset.py -d <path/to/data/arrythmia.mat>
 ```
 The directory with this data is referred to as "root_data" in the following sections.
 
 ### Abalone
 * Download the dataset from the UCI Repository [here](http://archive.ics.uci.edu/ml/datasets/Abalone). This will consists of `abalone.data`. 
-* To generate the training and test data, use the `process_dataset.py` script in the directory with the data. and the output is generated in the same directory.
+* To generate the training and test data, use the `process_abalone.py` script and the output is generated in the current directory.
 ```
-python process_dataset.py
+python process_abalone.py -d <path/to/data/abalone.data>
 ```
 The output path is referred to as "root_data" in the following section.
 
