@@ -23,11 +23,6 @@ python process_dataset.py
 The output path is referred to as "root_data" in the following section.
 
 ### Command to run experiments to reproduce results
-#### Abalone 
-```
-python3 main.py --hd 128 --lr 0.001 --inp_lamda 1 --inp_radius 3 --batch_size 256 --epochs 200 --one_class_adv 1 --optim 0 --restore 0 -d "root_data"
-```
-
 #### Arrhythmia
 ```
 python3 main.py --hd 128 --lr 0.0001 --inp_lamda 1 --inp_radius 16 --batch_size 256 --epochs 200 --one_class_adv 1 --optim 0 --restore 0 -d "root_data"
@@ -35,5 +30,10 @@ python3 main.py --hd 128 --lr 0.0001 --inp_lamda 1 --inp_radius 16 --batch_size 
 
 #### Thyroid
 ```
-python3 main.py --hd 128 --lr 0.001 --inp_lamda 1 --inp_radius 2.5 --batch_size 256 --epochs 200 --one_class_adv 1 --optim 0 --restore 0 -d "root_data"
+python3 main.py --hd 128 --lr 0.001 --inp_lamda 1 --inp_radius 2.5 --batch_size 256 --epochs 100 --one_class_adv 1 --optim 0 --restore 0 -d "root_data"
+```
+
+#### Abalone 
+```
+python3 main.py --hd 128 --lr 0.001 --inp_lamda 1 --inp_radius 3 --batch_size 256 --epochs 200 --one_class_adv 1 --optim 0 --restore 0 -d "root_data"
 ```

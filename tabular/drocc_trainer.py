@@ -231,7 +231,7 @@ class DROCCTrainer:
         return adv_loss
 
     def save(self, path):
-        torch.save(model.state_dict(),os.path.join(path, 'model.pt'))
+        torch.save(self.model.state_dict(),os.path.join(path, 'model.pt'))
 
     def load(self, path):
         self.model.load_state_dict(torch.load(os.path.join(path, 'model.pt')))
