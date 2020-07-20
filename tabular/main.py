@@ -93,7 +93,7 @@ def main():
             trainer.load(args.model_dir)
             print("Saved Model Loaded")
     
-    trainer.train(train_loader, test_loader, args.lr, 200, metric='F1')
+    trainer.train(train_loader, test_loader, args.lr, args.epochs, metric='F1', ascent_step_size=0.001)
 
     trainer.save(args.model_dir)
 
@@ -105,10 +105,16 @@ if __name__ == '__main__':
                         help='input batch size for training (default: 128)')
     parser.add_argument('--epochs', type=int, default=100, metavar='N',
                         help='number of epochs to train')
+    parser.add_argument('-oce,', '--only_ce_epochs', type=int, default=50, metavar='N',
+                        help='number of epochs to train with only CE loss')
+    parser.add_argument('--ascent_num_steps', type=int, default=50, metavar='N',
+                        help='Number of gradient ascent steps')                        
     parser.add_argument('--hd', type=int, default=128, metavar='N',
                         help='Num hidden nodes')
     parser.add_argument('--lr', type=float, default=0.001, metavar='LR',
                         help='learning rate')
+    parser.add_argument('--ascent_step_size', type=float, default=0.001, metavar='LR',
+                        help='step size of gradient ascent')                        
     parser.add_argument('--mom', type=float, default=0.99, metavar='M',
                         help='momentum')
     parser.add_argument('--model_dir', default='log',
