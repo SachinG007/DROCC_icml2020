@@ -51,16 +51,16 @@ parser.add_argument('-d', '--data_path', type=str, default='.')
 #PARSER ARGUMENTS OVER
 args = parser. parse_args()
 args = parser. parse_args()
-torch.manual_seed(2)
-np.random.seed(2)
+# torch.manual_seed(2)
+# np.random.seed(2)
 # settings
 #Checkpoint store path
 model_dir = args.model_dir
 if not os.path.exists(model_dir):
     os.makedirs(model_dir)
 use_cuda = torch.cuda.is_available()
-torch.manual_seed(args.seed)
-np.random.seed(args.seed)
+# torch.manual_seed(args.seed)
+# np.random.seed(args.seed)
 device = torch.device("cuda" if use_cuda else "cpu")
 kwargs = {'num_workers': 1, 'pin_memory': True} if use_cuda else {}
 

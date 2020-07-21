@@ -1,0 +1,3 @@
+ inp_radius 10.0 inp_lamda 0.5 HD 128 gamma 2.0 Optim 0 LR 0.001 MAX AUC 0.8111276902882981 @epoch 15
+ inp_radius 16.0 inp_lamda 1.0 HD 512 gamma 2.0 Optim 0 LR 0.001 MAX AUC 0.6051530380407875 @epoch 29
+ inp_radius 16.0 inp_lamda 1.0 HD 512 gamma 2.0 Optim 0 LR 0.001 MAX AUC 0.603291352146873 @epoch 13
