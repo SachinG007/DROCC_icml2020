@@ -34,13 +34,13 @@ class CIFAR10_Dataset(TorchvisionDataset):
                                         transforms.Normalize(mean=[0.4914, 0.4822, 0.4465],
                                         std=[0.247, 0.243, 0.261])])
 
-        target_transform = transforms.Lambda(lambda x: int(x in self.outlier_classes))
+        target_transform = transforms.Lambda(lambda x: int(x not in self.outlier_classes))
 
         train_set = MyCIFAR10(root=self.root, train=True, download=True,
                               transform=transform, target_transform=target_transform)
 
         # Subset train set to normal class
-        train_idx_normal = get_target_label_idx(train_set.train_labels, self.normal_classes)
+        train_idx_normal = get_target_label_idx(train_set.targets, self.normal_classes)
         # train_idx_normal_train = sample(train_idx_normal, 4000)
         # val_idx_normal = [x for x in train_idx_normal if x not in train_idx_normal_train]
 
@@ -66,10 +66,7 @@ class MyCIFAR10(CIFAR10):
         Returns:
             triple: (image, target, index) where target is index of the target class.
         """
-        if self.train:
-            img, target = self.train_data[index], self.train_labels[index]
-        else:
-            img, target = self.test_data[index], self.test_labels[index]
+        img, target = self.data[index], self.targets[index]
 
         # doing this so that it is consistent with all other datasets
         # to return a PIL Image
